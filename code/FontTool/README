@@ -1,0 +1,37 @@
+The module "Pillow" (available on PyPi) is required
+
+dumpfont.py:
+
+    Usage: python dumpfont.py <font_name> <font_size> <out_name>
+
+    <font_name> is the name of the TrueType font to generate a bitmap from. For
+    example: arial.ttf, times.ttf, etc.
+
+    <font_size> is the size of the font bitmap. For example: 10, 14, 24, etc.
+
+    <out_name> is the name of the output file
+
+    By default, antialiasing will be off and the characters that are generated are
+    ascii digits, lowercase and uppercase letters, and punctuation.
+
+    The output file will be in a packed binary format with the data for each
+    character in this form:
+
+    <ascii_code> <bitmap_width> <bitmap_height> <bitmap_data>
+
+    Each byte in <bitmap_data> is the value of a single greyscale pixel (0-255).
+    <bitmap_data> consists of <bitmap_height> packed rows of these pixels, each
+    <bitmap_width> long.
+
+rendertext.py:
+
+    Usage: python rendertext.py <font_name> <font_size> <out_name>
+
+    Arguments are the same as dumpfont.py
+
+    Output file will just be
+
+    <bitmap_width> <bitmap_height> <bitmap_data>
+
+    Which will represent data for a single bitmap containing all of the text
+    that was rendered.
