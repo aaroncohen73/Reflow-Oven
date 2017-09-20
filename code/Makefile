@@ -8,7 +8,7 @@ AVRDUDE := avrdude
 CFLAGS := -O0 -fpack-struct -Wall -Wextra -Wstrict-prototypes -std=gnu99
 
 OUT := oven
-OBJ := screen.o
+OBJ := spi.o
 MAIN := oven.c
 
 .PHONY: clean fuses download

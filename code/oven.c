@@ -13,17 +13,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 
+#include "spi.h"
+
 
 void oven_init(void)
 {
     spi_init();
 }
 
-void main(void)
+int main(void)
 {
     oven_init();
 
     while (1)
     {
     }
+
+    return 0;
 }

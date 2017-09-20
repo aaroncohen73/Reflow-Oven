@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 
 #include <stdint.h>
+#include <avr/io.h>
 #include "spi.h"
 
 
@@ -45,10 +46,10 @@ static void _spi_cs(uint8_t slave, enum ChipSelect state)
 void spi_init(void)
 {
     /* Enable SPI master mode, idle SCK low, sample on leading edge */
-    SPCR0 |= _BV(SPE0) | _BV(MSTR0);
+    SPCR |= _BV(SPE) | _BV(MSTR);
 
     /* f_sck = f_osc/2 (5 MHz) */
-    SPSR0 |= _BV(SPI2X0);
+    SPSR |= _BV(SPI2X);
 
     /* Enable slave select pins */
     DDRC |= _BV(PC0) | _BV(PC1);
@@ -62,9 +63,9 @@ void spi_write(uint8_t slave, uint8_t *data, uint16_t count)
 
     for (uint16_t i = 0; i < count; i++)
     {
-        SPDR0 = data[i];
+        SPDR = data[i];
 
-        while (!(SPSR0 & _BV(SPIF)));
+        while (!(SPSR & _BV(SPIF)));
     }
 
     _spi_cs(slave, CS_OFF);
@@ -77,9 +78,9 @@ void spi_read(uint8_t slave, uint8_t *data, uint16_t count)
 
     for (uint16_t i = 0; i < count; i++)
     {
-        while (!(SPSR0 & _BV(SPIF)));
+        while (!(SPSR & _BV(SPIF)));
 
-        data[i] = SPDR0;
+        data[i] = SPDR;
     }
 
     _spi_cs(slave, CS_OFF);
